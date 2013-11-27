@@ -1,6 +1,8 @@
 playlistApp.controller('GetPlaylistController', function($scope, $http, $routeParams, playlistService) {
-    var base_url = 'http://reddit.com/r/';
+    var base_url = 'http://reddit.com/';
     $scope.abs_url = '#/';
+
+    $scope.multireddit = false;
 
     $scope.listmodel = 'default';
     $scope.time = 'default';
@@ -22,6 +24,10 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
     });
 
     var init = function() {
+        if($routeParams.username != undefined && $routeParams.playlist != undefined) {
+            $scope.multireddit = true;
+            $scope.getPlaylist();
+        }
         if($routeParams.time != undefined) {
             $scope.time = $routeParams.time;
         }
@@ -43,6 +49,7 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
     }
 
     var make_url = function(subreddit) {
+        var json_callback = '.json?jsonp=JSON_CALLBACK&limit=100'
         var extended_url = '';
         var time_url = '';
 
@@ -52,8 +59,11 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
         if($scope.time != 'default' && $scope.listmodel == 'top') {
             time_url = '&sort=top&t=' + $scope.time;
         }
-
-        return base_url + $scope.subreddit + extended_url + '.json?jsonp=JSON_CALLBACK&limit=100' + time_url;
+        if(!$scope.multireddit) {
+            return base_url + 'r/' + $scope.subreddit + extended_url + json_callback + time_url;
+        } else {
+            return base_url + 'user/' + $routeParams.username + '/m/' + $routeParams.playlist + extended_url + json_callback + time_url
+        }
     }
 
     var validId = function(url) {

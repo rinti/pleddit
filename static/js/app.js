@@ -41,5 +41,9 @@ $routeProvider
       controller: 'GetPlaylistController',
       templateUrl: 'static/partials/_get_playlist.html'  
     })
+    .when('/user/:username/m/:playlist', {
+      controller: 'GetPlaylistController',
+      templateUrl: 'static/partials/_get_playlist.html'  
+    })
     .otherwise({redirectTo:'/'});
 });
