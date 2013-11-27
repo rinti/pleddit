@@ -103,6 +103,7 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
     $scope.getPlaylist = function() {
         $scope.playlist = [];
         $scope.abs_url = abs_url();
+        $scope.currentSong = 0;
         $scope.subreddit_json = $http({method: 'JSONP', url: make_url($scope.subreddit)}).then(function(response) {
             renderList(response);
             playByUrl($scope.playlist[0].url);
