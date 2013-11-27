@@ -44,5 +44,6 @@
 			<span data-ng-if="$index == currentSong" style="font-weight: bold">{{ song.title }}</span>
 			<span data-ng-if="$index != currentSong">{{ song.title }}</span>
 		</a>
+    <a data-ng-if="$index == currentSong" href="{{ song.reddit_url }}" target="_blank" class="btn btn-xs btn-default">reddit comments ({{ song.reddit_comments }})</a>
 	</li>
 </ul>

@@ -69,7 +69,7 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
     var renderList = function(data) {
         angular.forEach(data.data.data.children, function (test) {
             if(test.data.domain == 'youtube.com' && validId(test.data.url)) {
-                $scope.playlist.push({'title': test.data.title, 'url': test.data.url, 'score': test.data.score});
+                $scope.playlist.push({'title': test.data.title, 'url': test.data.url, 'score': test.data.score, 'reddit_url': 'http://reddit.com'+test.data.permalink, 'reddit_comments': test.data.num_comments});
             }
         });
     }
