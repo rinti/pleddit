@@ -11,8 +11,6 @@ def index():
 
 @app.route('/r/<subreddit>')
 def redirect_subreddit(subreddit):
-    print "WTF"
-    print request.args, request.args.get('t')
     return redirect('/#/%s' % subreddit, 303)
 
 @app.route('/r/<subreddit>/<sorting>/')
