@@ -3,6 +3,10 @@ pleddit
 Pleddit is a simple angular-application that collects all the youtube-links from a subreddit of reddit.com and transforms it into a playlist.
 It runs on flask, but should be fairly easy to use whatever you'd like (it's probably possible to just open the index.html locally)
 
+url
+---
+A working version of the webpage is available at http://pleddit.com
+
 TODO
 ====
 * Soundcloud support
