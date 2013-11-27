@@ -12,3 +12,4 @@ TODO
 * Soundcloud support
 * ~~"reddit routing" - should be possible to just change from reddit.com/r/music/top to pleddit.com/r/music/top and it should redirect you to the correct pleddit url.~~ fixed
 * Random song button should be toggleable
+* Support multireddits
