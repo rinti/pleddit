@@ -21,6 +21,7 @@ playlistApp.service('playlistService', ['$window', '$rootScope', function($windo
 		player.loadVideoByUrl(url_f);
 		$("#current_url").html(url);
 		player.playVideo();
+		$rootScope.$apply();
 	}
 
     $window.onPlayerReady = function() {
