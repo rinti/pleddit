@@ -1,0 +1,3 @@
+*.pyc
+Procfile
+test_run.py
