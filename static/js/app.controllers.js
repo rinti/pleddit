@@ -24,15 +24,15 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
     });
 
     var init = function() {
-        if($routeParams.username != undefined && $routeParams.playlist != undefined) {
-            $scope.multireddit = true;
-            $scope.getPlaylist();
-        }
         if($routeParams.time != undefined) {
             $scope.time = $routeParams.time;
         }
         if($routeParams.sorting != undefined) {
             $scope.listmodel = $routeParams.sorting;
+        }
+        if($routeParams.username != undefined && $routeParams.playlist != undefined) {
+            $scope.multireddit = true;
+            $scope.getPlaylist();
         }
         if($routeParams.subreddit != undefined) {
             $scope.subreddit = $routeParams.subreddit;
@@ -45,7 +45,11 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
         var time = '';
         if($scope.listmodel != 'default') { listmodel = '/' +  $scope.listmodel; }
         if($scope.time != 'default') { time = '/' + $scope.time; }
-        return '#/' + $scope.subreddit + listmodel + time;
+        if(!$scope.multireddit) {
+            return '#/' + $scope.subreddit + listmodel + time;
+        } else {
+            return '#/user/' + $routeParams.username + '/m/' + $routeParams.playlist +  listmodel + time;
+        }
     }
 
     var make_url = function(subreddit) {
@@ -60,10 +64,12 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
             time_url = '&sort=top&t=' + $scope.time;
         }
         if(!$scope.multireddit) {
-            return base_url + 'r/' + $scope.subreddit + extended_url + json_callback + time_url;
+            return_url = base_url + 'r/' + $scope.subreddit + extended_url + json_callback + time_url;
         } else {
-            return base_url + 'user/' + $routeParams.username + '/m/' + $routeParams.playlist + extended_url + json_callback + time_url
+            return_url = base_url + 'user/' + $routeParams.username + '/m/' + $routeParams.playlist + extended_url + json_callback + time_url
         }
+        console.log(return_url);
+        return return_url;
     }
 
     var validId = function(url) {

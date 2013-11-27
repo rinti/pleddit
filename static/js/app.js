@@ -41,7 +41,16 @@ $routeProvider
       controller: 'GetPlaylistController',
       templateUrl: 'static/partials/_get_playlist.html'  
     })
+    // Multireddits
     .when('/user/:username/m/:playlist', {
+      controller: 'GetPlaylistController',
+      templateUrl: 'static/partials/_get_playlist.html'  
+    })
+    .when('/user/:username/m/:playlist/:sorting', {
+      controller: 'GetPlaylistController',
+      templateUrl: 'static/partials/_get_playlist.html'  
+    })
+    .when('/user/:username/m/:playlist/:sorting/:time', {
       controller: 'GetPlaylistController',
       templateUrl: 'static/partials/_get_playlist.html'  
     })
