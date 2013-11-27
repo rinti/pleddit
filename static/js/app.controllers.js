@@ -85,7 +85,7 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
     $scope.prevSong = function() {
         prev_song = $scope.currentSong-1;
         if(prev_song <= 0) {
-            prev_song = $scope.playlist.length;
+            prev_song = $scope.playlist.length-1;
         }
         $scope.playSong(prev_song);
     }
@@ -95,6 +95,7 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
     }
 
     $scope.playSong = function(number) {
+        console.log(number);
         $scope.currentSong = number;
         $scope.currentSongUrl = $scope.playlist[number].url;
         playByUrl($scope.playlist[number].url);
