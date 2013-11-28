@@ -90,7 +90,7 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
         if(!$scope.multireddit) {
             return_url = base_url + 'r/' + $scope.subreddit + extended_url + json_callback + time_url;
         } else {
-            return_url = base_url + 'user/' + $routeParams.username + '/m/' + $routeParams.playlist + extended_url + json_callback + time_url
+            return_url = base_url + 'user/' + $scope.multi_user + '/m/' + $scope.multi_playlist + extended_url + json_callback + time_url
         }
         return return_url;
     }
