@@ -119,7 +119,7 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
 
     var renderList = function(data) {
         angular.forEach(data.data.data.children, function (test) {
-            if((test.data.domain == 'youtube.com' && validId(test.data.url)) || (test.data.domain == 'soundcloud.com' && test.data.url.indexOf("playlist") === -1)) {
+            if((test.data.domain == 'youtube.com' && validId(test.data.url)) || (test.data.domain == 'soundcloud.com' && test.data.url.indexOf("/sets") === -1)) {
                 //test.data.media.oembed.url
                 $scope.playlist.push({
                     'domain': test.data.domain,
@@ -165,15 +165,17 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
             playByUrl($scope.playlist[number].url);
         } else {
             //widget.api_setVolume(10);
-            widget.load($scope.playlist[number].url, {
-              show_artwork: false,
-              auto_play:true,
-              show_comments:false,
-              buying:false,
-              liking:false,
-              sharing:false,
-              show_playcount:false,
-              show_user:false,
+            $scope.$apply(function() {
+                widget.load($scope.playlist[number].url, {
+                  show_artwork: false,
+                  auto_play:true,
+                  show_comments:false,
+                  buying:false,
+                  liking:false,
+                  sharing:false,
+                  show_playcount:false,
+                  show_user:false,
+                });
             });
         }
     }
