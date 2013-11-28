@@ -1,7 +1,22 @@
 <div class="col-xs-12">
 <div class="form-group">
-<label for="subreddit_input">Subreddit</label>
+<label for="subreddit_input">
+  <a href="" data-ng-click="setType('subreddit')" id="sub_button" class="btn btn-xs btn-success">Subreddit</a>
+</label>
+<label for="multireddit_input">
+  <a href="" data-ng-click="setType('multireddit')" id="mult_button" class="btn btn-xs btn-default">Multireddit</a>
+</label>
 <input type="text" class="form-control" data-ng-model="subreddit" id="subreddit_input" data-ng-enter="getPlaylist()" placeholder="Write a subreddit here: (e.g. 'music')">
+
+<div class="row">
+<div class="col-xs-4">
+<input type="text" class="form-control multi_input" data-ng-model="multi_user" id="multireddit_input_user" data-ng-enter="getPlaylist()" placeholder="Multireddit username" style="display: none">
+</div>
+<div class="col-xs-8">
+<input type="text" class="form-control multi_input" data-ng-model="multi_playlist" id="multireddit_input_playlist" data-ng-enter="getPlaylist()" placeholder="Multireddit playlist name" style="display: none">
+</div>
+</div>
+
 </div>
 </div>
 

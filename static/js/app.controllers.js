@@ -7,6 +7,9 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
     $scope.listmodel = 'default';
     $scope.time = 'default';
 
+    $scope.multi_user = '';
+    $scope.multi_playlist = '';
+
     $scope.playlist = playlistService.getPlaylist();
     $scope.currentSong = 0;
 
@@ -23,6 +26,24 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
         }
     });
 
+    $scope.setType = function(t) {
+        if(t == 'subreddit') {
+            // Subreddit
+            $("#subreddit_input").show();
+            $(".multi_input").hide();
+            $("#sub_button").removeClass('btn-default').addClass('btn-success');
+            $("#mult_button").removeClass('btn-success').addClass('btn-default');
+            $scope.multireddit = false;
+        } else {
+            // Multireddit
+            $("#subreddit_input").hide();
+            $(".multi_input").show();
+            $("#sub_button").removeClass('btn-success').addClass('btn-default');
+            $("#mult_button").removeClass('btn-default').addClass('btn-success');
+            $scope.multireddit = true;
+        }
+    }
+
     var init = function() {
         if($routeParams.time != undefined) {
             $scope.time = $routeParams.time;
@@ -32,7 +53,10 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
         }
         if($routeParams.username != undefined && $routeParams.playlist != undefined) {
             $scope.multireddit = true;
+            $scope.multi_user = $routeParams.username;
+            $scope.multi_playlist = $routeParams.playlist;
             $scope.getPlaylist();
+            $scope.setType('multireddit');
         }
         if($routeParams.subreddit != undefined) {
             $scope.subreddit = $routeParams.subreddit;
@@ -48,11 +72,11 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
         if(!$scope.multireddit) {
             return '#/' + $scope.subreddit + listmodel + time;
         } else {
-            return '#/user/' + $routeParams.username + '/m/' + $routeParams.playlist +  listmodel + time;
+            return '#/user/' + $scope.multi_user + '/m/' + $scope.multi_playlist +  listmodel + time;
         }
     }
 
-    var make_url = function(subreddit) {
+    var make_url = function() {
         var json_callback = '.json?jsonp=JSON_CALLBACK&limit=100'
         var extended_url = '';
         var time_url = '';
@@ -68,7 +92,6 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
         } else {
             return_url = base_url + 'user/' + $routeParams.username + '/m/' + $routeParams.playlist + extended_url + json_callback + time_url
         }
-        console.log(return_url);
         return return_url;
     }
 
@@ -120,7 +143,7 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
         $scope.playlist = [];
         $scope.abs_url = abs_url();
         $scope.currentSong = 0;
-        $scope.subreddit_json = $http({method: 'JSONP', url: make_url($scope.subreddit)}).then(function(response) {
+        $scope.subreddit_json = $http({method: 'JSONP', url: make_url()}).then(function(response) {
             renderList(response);
             playByUrl($scope.playlist[0].url);
         });
