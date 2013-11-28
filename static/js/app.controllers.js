@@ -165,18 +165,17 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
             playByUrl($scope.playlist[number].url);
         } else {
             //widget.api_setVolume(10);
-            $scope.$apply(function() {
-                widget.load($scope.playlist[number].url, {
-                  show_artwork: false,
-                  auto_play:true,
-                  show_comments:false,
-                  buying:false,
-                  liking:false,
-                  sharing:false,
-                  show_playcount:false,
-                  show_user:false,
-                });
+            widget.load($scope.playlist[number].url, {
+              show_artwork: false,
+              auto_play:true,
+              show_comments:false,
+              buying:false,
+              liking:false,
+              sharing:false,
+              show_playcount:false,
+              show_user:false,
             });
+            $scope.$apply();
         }
     }
 
