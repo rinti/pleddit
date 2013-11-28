@@ -17,12 +17,16 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
         $scope.nextSong();
     });
 
+    $scope.$on('SC_PLAYER', function(event, player) {
+        $scope.scplayer = player;
+    });
+
+
     $scope.$on('YOUTUBE_PLAYER_READY', function(event) {
         $scope.$apply(function() {
             init();
             $scope.ready = true;
         });
-        // Todo: MAKE THIS WORK
     });
 
     $scope.$watch('listmodel', function(newVal, oldVal) {
@@ -115,9 +119,10 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
 
     var renderList = function(data) {
         angular.forEach(data.data.data.children, function (test) {
-            if(test.data.domain == 'youtube.com' && validId(test.data.url)) {
+            if((test.data.domain == 'youtube.com' && validId(test.data.url)) || (test.data.domain == 'soundcloud.com' && test.data.url.indexOf("playlist") === -1)) {
                 //test.data.media.oembed.url
                 $scope.playlist.push({
+                    'domain': test.data.domain,
                     'title': test.data.title,
                     'url': test.data.url,
                     'score': test.data.score,
@@ -147,12 +152,37 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
     $scope.randSong = function() {
         $scope.playSong(Math.floor(Math.random()*$scope.playlist.length));
     }
-
+    
     $scope.playSong = function(number) {
         $scope.currentSong = number;
         $scope.currentSongUrl = $scope.playlist[number].url;
-        playByUrl($scope.playlist[number].url);
+
+        // Stop current players
+        widget.pause();
+        stopYtPlayer();
+
+        if($scope.playlist[number].domain == 'youtube.com') {
+            playByUrl($scope.playlist[number].url);
+        } else {
+            //widget.api_setVolume(10);
+            widget.load($scope.playlist[number].url, {
+              show_artwork: false,
+              auto_play:true,
+              show_comments:false,
+              buying:false,
+              liking:false,
+              sharing:false,
+              show_playcount:false,
+              show_user:false,
+            });
+        }
     }
+
+    // Soundcloud: pls implement a real volume control.
+    $scope.volume = 10;
+    widget.bind(SC.Widget.Events.PLAY_PROGRESS , function() {
+        widget.setVolume($scope.volume);
+    });
 
     $scope.getPlaylist = function() {
         $scope.playlist = [];

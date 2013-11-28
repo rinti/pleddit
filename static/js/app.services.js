@@ -29,6 +29,10 @@ playlistApp.service('playlistService', ['$window', '$rootScope', function($windo
 		}
 	}
 
+	$window.stopYtPlayer = function() {
+		player.stopVideo();
+	}
+
     $window.onPlayerReady = function() {
     	$rootScope.$broadcast('YOUTUBE_PLAYER_READY', event);
     	$rootScope.ready = true;
@@ -62,9 +66,13 @@ playlistApp.service('playlistService', ['$window', '$rootScope', function($windo
         return playlist;
     }
 
-    // SOUNDCLOUD
-	SC.initialize({
-		client_id: "321811ac3aed726a88ae3e32e9de2f1f",
-	});
+	$window.widgetIframe = document.getElementById('sc-widget'),
+	$window.widget       = SC.Widget($window.widgetIframe);
 
+	$window.newWidgetUrl = 'http://api.soundcloud.com/tracks/',
+	$window.CLIENT_ID    = '321811ac3aed726a88ae3e32e9de2f1f';
+
+	widget.bind(SC.Widget.Events.FINISH, function() {
+        $rootScope.$broadcast('NEXT_SONG', event);
+    });
 }]);

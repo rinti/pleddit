@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Pleddit is a youtube playlist generator, making playlists off of reddit.">
     <title>Pewpew</title>
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <style>body { margin: 50px; } #player, #info_above_player { position: fixed; margin-top: 40px; } #info_above_player {margin-top: 20px}</style>
-
 </head>
 <body>
     <div class="row" data-ng-app="playlistApp" id="playlistapp" data-ng-init="init()">
@@ -25,18 +25,30 @@
         <div class="col-md-6">
             <div id="info_above_player">
                 <p id="current_url"></p></div>
+
             <div id="player">
-            </div>    
+            </div>
+
+            <iframe id="sc-widget" width="540" height="166" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=false" style="margin-top: 500px; position: fixed"></iframe>
+
+
+            <!--
+            <object height="81" width="540" id="soundcloudplayer" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+              <param name="movie" value="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&enable_api=true&object_id=soundcloudplayer&allowscriptaccess=always"></param>
+              <param name="allowscriptaccess" value="always"></param>
+              <embed allowscriptaccess="always" height="81" src="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&enable_api=true&object_id=soundcloudplayer&allowscriptaccess=always" type="application/x-shockwave-flash" width="540" name="soundcloudplayer" style="margin-top: 500px; position: fixed"></embed>
+            </object>
+            -->
+
         </div>
     </div>
 
-    <script src="//connect.soundcloud.com/sdk.js"></script>
     <script src="https://w.soundcloud.com/player/api.js"></script>  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
     <script src="/static/js/app.js"></script>
-    <script src="/static/js/app.controllers.js"></script>
     <script src="/static/js/app.services.js"></script>
+    <script src="/static/js/app.controllers.js"></script>
 </body>
 </html>
