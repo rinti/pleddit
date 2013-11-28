@@ -12,13 +12,12 @@ playlistApp.service('playlistService', ['$window', '$rootScope', function($windo
 			'onReady': onPlayerReady,
 			'onStateChange': onPlayerStateChange,
 			'onError': onPlayerError
-			}
+			},
 		});
-		$rootScope.$broadcast('YOUTUBE_PLAYER_READY', event);
 	}
 
 	$window.playByUrl = function(url) {
-		try {
+		if($rootScope.ready) {
 			url_f = formatUrl(url);
 			player.loadVideoByUrl(url_f);
 			$("#current_url").html(url);
@@ -27,13 +26,12 @@ playlistApp.service('playlistService', ['$window', '$rootScope', function($windo
 			if(!$rootScope.$$phase) {
 				$rootScope.$apply();
 			}
-		} catch(e) {
-			console.log(e);
 		}
 	}
 
     $window.onPlayerReady = function() {
-    	// 
+    	$rootScope.$broadcast('YOUTUBE_PLAYER_READY', event);
+    	$rootScope.ready = true;
     }
 
 	$window.onPlayerError = function(event) {
@@ -55,7 +53,6 @@ playlistApp.service('playlistService', ['$window', '$rootScope', function($windo
 	}
 
 	$window.onPlayerStateChange = function(event) {
-		console.log(event.data);
 		if(event.data == 0) {
 			$rootScope.$broadcast('NEXT_SONG', event);
 		}
@@ -64,4 +61,10 @@ playlistApp.service('playlistService', ['$window', '$rootScope', function($windo
     this.getPlaylist = function() {
         return playlist;
     }
+
+    // SOUNDCLOUD
+	SC.initialize({
+		client_id: "321811ac3aed726a88ae3e32e9de2f1f",
+	});
+
 }]);

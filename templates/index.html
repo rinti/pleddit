@@ -5,12 +5,7 @@
     <title>Pewpew</title>
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <style>body { margin: 50px; } #player, #info_above_player { position: fixed; margin-top: 40px; } #info_above_player {margin-top: 20px}</style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
-    <script src="/static/js/app.js"></script>
-    <script src="/static/js/app.controllers.js"></script>
-    <script src="/static/js/app.services.js"></script>
+
 </head>
 <body>
     <div class="row" data-ng-app="playlistApp" id="playlistapp" data-ng-init="init()">
@@ -19,7 +14,8 @@
             <p>This site takes a subreddit from <a href="http://reddit.com" target="_new">reddit</a> and generates a playlist of youtube-videos from the submitted content in that subreddit. It's mainly aimed towards subreddits where a lot of music gets posted.</p>
             <p>It's possible to contact me on twitter <a href="http://twitter.com/andrinti" target="_new">@andrinti</a></p>
             <hr>
-            <p>examples: <a href="#/jazz">/r/jazz frontpage</a>, <a href="#/hiphopheads/top/all">/r/hiphopheads' most popular music of all time</a>, <a href="#/electronicmusic/top/month">/r/electronicmusic's top music this month</a>, <a href="#/jazzhop">/r/jazzhop frontpage</a>, <a href="#/listentothis">/r/listentothis' frontpage</a>, <a href="#/postrock/top/week">/r/postrock's most popular music this week</a>, <a href="#/music/new">/r/music's newest submissions</a></p> 
+            <p>subreddit examples: <a href="#/jazz">/r/jazz frontpage</a>, <a href="#/hiphopheads/top/all">/r/hiphopheads' most popular music of all time</a>, <a href="#/electronicmusic/top/month">/r/electronicmusic's top music this month</a>, <a href="#/jazzhop">/r/jazzhop frontpage</a>, <a href="#/listentothis">/r/listentothis' frontpage</a>, <a href="#/postrock/top/week">/r/postrock's most popular music this week</a>, <a href="#/music/new">/r/music's newest submissions</a></p> 
+            <p>multireddit examples: <a href="#/user/evilnight/m/truemusic">/user/evilnight/m/truemusic frontpage</a></p> 
             <p>it's also possible to add several together like so: <a href="#/jazz+hiphopheads+electronicmusic">jazz+hiphopheads+electronicmusic</a></p>
             <hr>
                 <div data-ng-view=""></div>
@@ -34,5 +30,13 @@
         </div>
     </div>
 
+    <script src="//connect.soundcloud.com/sdk.js"></script>
+    <script src="https://w.soundcloud.com/player/api.js"></script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+    <script src="/static/js/app.js"></script>
+    <script src="/static/js/app.controllers.js"></script>
+    <script src="/static/js/app.services.js"></script>
 </body>
 </html>

@@ -18,9 +18,10 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
     });
 
     $scope.$on('YOUTUBE_PLAYER_READY', function(event) {
-        //$scope.$apply(function() {
-        //    init();
-        //});
+        $scope.$apply(function() {
+            init();
+            $scope.ready = true;
+        });
         // Todo: MAKE THIS WORK
     });
 
@@ -115,9 +116,10 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
     var renderList = function(data) {
         angular.forEach(data.data.data.children, function (test) {
             if(test.data.domain == 'youtube.com' && validId(test.data.url)) {
+                //test.data.media.oembed.url
                 $scope.playlist.push({
                     'title': test.data.title,
-                    'url': test.data.media.oembed.url,
+                    'url': test.data.url,
                     'score': test.data.score,
                     'reddit_url': 'http://reddit.com'+test.data.permalink,
                     'reddit_comments': test.data.num_comments,
@@ -158,10 +160,14 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
         $scope.currentSong = 0;
         $scope.subreddit_json = $http({method: 'JSONP', url: make_url()}).then(function(response) {
             renderList(response);
-            playByUrl($scope.playlist[0].url);
+            if($scope.playlist.length > 0) {
+                playByUrl($scope.playlist[0].url);
+            }
         });
     };
 
-    init();
+    if($scope.ready == true) {
+        init();
+    }
 
 });
