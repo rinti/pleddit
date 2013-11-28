@@ -17,6 +17,12 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
         $scope.nextSong();
     });
 
+    $scope.$on('YOUTUBE_PLAYER_READY', function(event) {
+        $scope.$apply(function() {
+            init();
+        });
+    });
+
     $scope.$watch('listmodel', function(newVal, oldVal) {
         if(newVal == 'top') {
             $("#best-time").show();
@@ -140,6 +146,7 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
     }
 
     $scope.getPlaylist = function() {
+
         $scope.playlist = [];
         $scope.abs_url = abs_url();
         $scope.currentSong = 0;
@@ -149,6 +156,5 @@ playlistApp.controller('GetPlaylistController', function($scope, $http, $routePa
         });
     };
 
-    init();
 
 });

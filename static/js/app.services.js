@@ -7,21 +7,29 @@ playlistApp.service('playlistService', ['$window', '$rootScope', function($windo
 		player = new YT.Player('player', {
 			height: '335',
 			width: '540',
-			videoId: '',
+			videoId: null,
 			events: {
 			'onReady': onPlayerReady,
 			'onStateChange': onPlayerStateChange,
 			'onError': onPlayerError
 			}
 		});
+		$rootScope.$broadcast('YOUTUBE_PLAYER_READY', event);
 	}
 
 	$window.playByUrl = function(url) {
-		url_f = formatUrl(url);
-		player.loadVideoByUrl(url_f);
-		$("#current_url").html(url);
-		player.playVideo();
-		$rootScope.$apply();
+		try {
+			url_f = formatUrl(url);
+			player.loadVideoByUrl(url_f);
+			$("#current_url").html(url);
+			player.playVideo();
+
+			if(!$rootScope.$$phase) {
+				$rootScope.$apply();
+			}
+		} catch(e) {
+			console.log(e);
+		}
 	}
 
     $window.onPlayerReady = function() {
