@@ -55,6 +55,7 @@ playlistApp.service('playlistService', ['$window', '$rootScope', function($windo
 	}
 
 	$window.onPlayerStateChange = function(event) {
+		console.log(event.data);
 		if(event.data == 0) {
 			$rootScope.$broadcast('NEXT_SONG', event);
 		}

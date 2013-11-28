@@ -54,7 +54,8 @@
 <hr>
 
 <ul class="list-group">
-	<li class="list-group-item" data-ng-repeat="song in playlist"><span class="badge">{{ song.score }}</span>
+	<li class="list-group-item" data-ng-repeat="song in playlist">
+    <span class="badge">{{ song.score }}</span>
 		<a href="" data-ng-click="playSong({{ $index }})">
 			<span data-ng-if="$index == currentSong" style="font-weight: bold">{{ song.title }}</span>
 			<span data-ng-if="$index != currentSong">{{ song.title }}</span>
