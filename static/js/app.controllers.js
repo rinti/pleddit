@@ -1,4 +1,4 @@
-playlistApp.controller('GetPlaylistController', function($scope, $http, $routeParams, playlistService) {
+playlistApp.controller('GetPlaylistController', function($scope, $http, $routeParams, playlistService, youtubeService, soundcloudService) {
     var base_url = 'http://reddit.com/';
     $scope.abs_url = '#/';
 

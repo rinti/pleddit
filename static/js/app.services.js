@@ -1,6 +1,24 @@
 playlistApp.service('playlistService', ['$window', '$rootScope', function($window, $rootScope) {
     playlist = [];
 
+    this.getPlaylist = function() {
+        return playlist;
+    }
+}]);
+
+playlistApp.service('soundcloudService', ['$window', '$rootScope', function($window, $rootScope) {
+	$window.widgetIframe = document.getElementById('sc-widget'),
+	$window.widget       = SC.Widget($window.widgetIframe);
+
+	$window.newWidgetUrl = 'http://api.soundcloud.com/tracks/',
+	$window.CLIENT_ID    = '321811ac3aed726a88ae3e32e9de2f1f';
+
+	widget.bind(SC.Widget.Events.FINISH, function() {
+        $rootScope.$broadcast('NEXT_SONG', event);
+    });
+}]);
+
+playlistApp.service('youtubeService', ['$window', '$rootScope', function($window, $rootScope) {
 	var player;
 
 	$window.onYouTubeIframeAPIReady = function() {
@@ -61,18 +79,4 @@ playlistApp.service('playlistService', ['$window', '$rootScope', function($windo
 			$rootScope.$broadcast('NEXT_SONG', event);
 		}
 	}
-
-    this.getPlaylist = function() {
-        return playlist;
-    }
-
-	$window.widgetIframe = document.getElementById('sc-widget'),
-	$window.widget       = SC.Widget($window.widgetIframe);
-
-	$window.newWidgetUrl = 'http://api.soundcloud.com/tracks/',
-	$window.CLIENT_ID    = '321811ac3aed726a88ae3e32e9de2f1f';
-
-	widget.bind(SC.Widget.Events.FINISH, function() {
-        $rootScope.$broadcast('NEXT_SONG', event);
-    });
 }]);
