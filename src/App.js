@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import './App.css';
 import { create } from 'apisauce'
+import Song from './Song'
 
 const api = create({
   baseURL: 'https://www.reddit.com',
   headers: { Accept: 'application/vnd.github.v3+json' },
 })
 
-const Song = ({ title, url }) => {
-    return <li>{title}</li>
-}
 const App = () => {
     const [subreddit, setSubreddit] = useState('')
     const [songs, setSongs] = useState([])
