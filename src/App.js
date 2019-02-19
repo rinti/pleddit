@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import './App.css';
+import { create } from 'apisauce'
+
+const api = create({
+  baseURL: 'https://www.reddit.com',
+  headers: { Accept: 'application/vnd.github.v3+json' },
+})
 
 const Song = ({ title, url }) => {
     return <li>{title}</li>
 }
-
 const App = () => {
     const [subreddit, setSubreddit] = useState('')
     const [songs, setSongs] = useState([])
@@ -14,7 +19,7 @@ const App = () => {
     }
 
     const handleFetchClick = (e) => {
-        setSongs([{title: 'test'}])
+        api.get(`r/${subreddit}.json?jsonp=`).then(response => setSongs(response.data.data.children))
     }
 
     return (
@@ -26,7 +31,7 @@ const App = () => {
                 </button>
             </section>
             <ul>
-                {songs.map(item => <Song {...item} />)}
+                {songs.map(item => <Song key={item.data.id} {...item.data} />)}
             </ul>
         </div>
     );
