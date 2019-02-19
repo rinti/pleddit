@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import { create } from 'apisauce'
-import Song from './Song'
+import SongList from './SongList'
 
 const api = create({
   baseURL: 'https://www.reddit.com',
@@ -28,9 +28,7 @@ const App = () => {
                     fetchy
                 </button>
             </section>
-            <ul>
-                {songs.map(item => <Song key={item.data.id} {...item.data} />)}
-            </ul>
+            <SongList songs={songs} />
         </div>
     );
 }
